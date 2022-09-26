@@ -7,47 +7,63 @@
     android:padding="@dimen/_24sdp"
     tools:context=".add.AddFragment">
 
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="0dp"
+    android:layout_height="@dimen/_50sdp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:id="@+id/et_til_title"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_50sdp"
+
+    >
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_input_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:inputType="textPersonName"
         android:hint="@string/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         android:background="@android:color/transparent"
-        android:paddingStart="@dimen/_7sdp"
-        android:paddingTop="@dimen/_5sdp"
-        />
 
+
+
+        />
+</com.google.android.material.textfield.TextInputLayout>
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="@dimen/_50sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/et_til_title"
         android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_7sdp"
         android:entries="@array/priorities"
         />
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:id="@+id/til_description"
+    android:layout_marginTop="@dimen/_15sdp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/spinner"
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_input_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:inputType="textMultiLine"
         android:hint="@string/description"
         android:gravity="top|start"
-        android:layout_marginTop="@dimen/_15sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        android:background="@android:color/transparent"
-        android:paddingStart="@dimen/_7sdp"
+
+
+
 
         />
+</com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
