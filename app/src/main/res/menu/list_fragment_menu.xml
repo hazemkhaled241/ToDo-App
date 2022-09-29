@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/menu_search"
+    android:icon="@drawable/ic_baseline_search_24"
+    android:title="@string/search"
+    app:showAsAction="ifRoom"
+    app:actionViewClass="androidx.appcompat.widget.SearchView"
+    />
+    <group>
+<item
+    android:id="@+id/menu_sortBy"
+    android:title="@string/sort_by"
+    >
+<menu>
+    <item
+        android:title="@string/priority_low"
+        android:id="@+id/priority_low"
+        />
+    <item
+        android:title="@string/priority_high"
+        android:id="@+id/priority_high"
+        />
+
+</menu>
+</item>
+        <item
+            android:title="Delete All"
+            android:id="@+id/menu_deleteAll"
+            />
+
+    </group>
+</menu>
