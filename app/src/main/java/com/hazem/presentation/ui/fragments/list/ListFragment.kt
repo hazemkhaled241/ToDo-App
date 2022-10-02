@@ -1,8 +1,7 @@
-package com.hazem.todoapplication.list
+package com.hazem.presentation.ui.fragments.list
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
