@@ -10,6 +10,7 @@ abstract class ToDoDataBase:RoomDatabase() {
     abstract fun toDoDao():ToDoDao
     companion object{
          @Volatile
+         
         private var INSTANCE: ToDoDataBase?=null
         fun getDataBase(context:Context):ToDoDataBase{
           val tempInstance= INSTANCE
