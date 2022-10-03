@@ -1,4 +1,4 @@
-package com.hazem.data
+package com.hazem.data.model
 
 enum class Priority {
     HiIGH,

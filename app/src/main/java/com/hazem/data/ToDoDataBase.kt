@@ -1,16 +1,16 @@
 package com.hazem.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.hazem.data.model.ToDoData
 
 @Database(entities = [ToDoData::class], version = 1, exportSchema = false)
+@TypeConverters(Converter::class)
 abstract class ToDoDataBase:RoomDatabase() {
     abstract fun toDoDao():ToDoDao
     companion object{
          @Volatile
-         
+
         private var INSTANCE: ToDoDataBase?=null
         fun getDataBase(context:Context):ToDoDataBase{
           val tempInstance= INSTANCE

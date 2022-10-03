@@ -2,6 +2,7 @@ package com.hazem.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.hazem.data.model.ToDoData
 
 @Dao
 interface ToDoDao {
