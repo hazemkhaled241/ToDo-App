@@ -5,13 +5,21 @@ import android.view.*
 
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.hazem.data.ToDoDataBase
+import com.hazem.data.viewmodel.ToDoViewModel
 import com.hazem.todoapplication.R
 
 class ListFragment : Fragment(),MenuProvider {
-
+lateinit var recyclerView:RecyclerView
+private val toDoViewModel:ToDoViewModel by viewModels()
+    private val adapter:ListAdapter by lazy { ListAdapter() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +38,11 @@ class ListFragment : Fragment(),MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
+        recyclerView=view.findViewById<RecyclerView>(R.id.rv_list)
+        recyclerView.adapter=adapter
+        toDoViewModel.getAllData.observe(viewLifecycleOwner, Observer {
+         adapter.setData(it)
+        })
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
