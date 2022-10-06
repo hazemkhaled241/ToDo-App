@@ -19,6 +19,7 @@ class ListAdapter :RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_layout,parent,false))
     }
 
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
        holder.itemView.findViewById<TextView>(R.id.tv_title).text=dataList[position].title
        holder.itemView.findViewById<TextView>(R.id.tv_description).text=dataList[position].description
