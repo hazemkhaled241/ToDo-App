@@ -38,6 +38,8 @@ private val args by navArgs<UpdateFragmentArgs>()
 
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
