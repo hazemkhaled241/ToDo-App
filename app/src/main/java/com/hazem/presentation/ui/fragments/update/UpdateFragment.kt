@@ -1,5 +1,6 @@
 package com.hazem.presentation.ui.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -47,11 +48,27 @@ private val args by navArgs<UpdateFragmentArgs>()
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if(menuItem.itemId==R.id.menu_save){
-            updateData()
-        return true
+        when(menuItem.itemId){
+            R.id.menu_save -> { updateData()
+            return true}
+            R.id.menu_delete -> { deleteData()
+                return true}
         }
+
         return false
+    }
+
+    private fun deleteData() {
+        val builder=AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){_,_,->
+            mToDoViewModel.deleteData(args.currentItem)
+            Toast.makeText(requireContext(),"Successfully Deleted",Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No"){_,_->}
+        builder.setTitle("Delete ${args.currentItem.title}?")
+        builder.setMessage("Are you sure you want to remove ${args.currentItem.title}?")
+        builder.create().show()
     }
 
     private fun updateData() {
