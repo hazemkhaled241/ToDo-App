@@ -1,7 +1,9 @@
 package com.hazem.presentation.ui.fragments.list
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -50,9 +52,24 @@ private val toDoViewModel:ToDoViewModel by viewModels()
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
+      when(menuItem.itemId){
+          R.id.menu_deleteAll->{deleteAll()
+              return true}
+      }
 
         return true
+    }
+
+    private fun deleteAll() {
+        val builder= AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){_,_,->
+            toDoViewModel.deleteAll()
+            Toast.makeText(requireContext(),"Successfully Deleted", Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("No"){_,_->}
+        builder.setTitle("Delete EveryThing!")
+        builder.setMessage("Are you sure you want to remove everything?")
+        builder.create().show()
     }
 
 }
