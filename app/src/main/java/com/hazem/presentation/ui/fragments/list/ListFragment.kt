@@ -16,51 +16,37 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hazem.data.viewmodel.SharedViewModel
 import com.hazem.data.viewmodel.ToDoViewModel
 import com.hazem.todoapplication.R
+import com.hazem.todoapplication.databinding.FragmentListBinding
 
 class ListFragment : Fragment(),MenuProvider {
 private lateinit var recyclerView:RecyclerView
 private val toDoViewModel:ToDoViewModel by viewModels()
 private val mSharedViewModel:SharedViewModel by viewModels()
+private var _binding:FragmentListBinding?=null
+private val binding get() = _binding!!
     private val adapter:ListAdapter by lazy { ListAdapter() }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view=inflater.inflate(R.layout.fragment_list, container, false)
-      val floatingActionButton=view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-
-          floatingActionButton.setOnClickListener {
-          findNavController().navigate(R.id.action_listFragment_to_addFragment)
-      }
-
-    return view
+         _binding=FragmentListBinding.inflate(inflater,container,false)
+    return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
-        recyclerView=view.findViewById(R.id.rv_list)
-        recyclerView.adapter=adapter
+        setUpRecyclerView()
         toDoViewModel.getAllData.observe(viewLifecycleOwner) {
            mSharedViewModel.setIsEmptyList(it)
             adapter.setData(it)
         }
-        mSharedViewModel.emptyDataBase.observe(viewLifecycleOwner){
-            showNoDataPhoto(it)
-        }
+        binding.lifecycleOwner=this
+        binding.mSharedViewModel=mSharedViewModel
 
     }
 
-    private fun showNoDataPhoto(isEmpty:Boolean) {
-        if(isEmpty){
-            requireView().findViewById<ImageView>(R.id.iv_empty_list).visibility=View.VISIBLE
-            requireView().findViewById<TextView>(R.id.no_data).visibility=View.VISIBLE
-        }
-        else{
-            requireView().findViewById<ImageView>(R.id.iv_empty_list).visibility=View.INVISIBLE
-            requireView().findViewById<TextView>(R.id.no_data).visibility=View.INVISIBLE
-        }
+    private fun setUpRecyclerView() {
+        recyclerView=binding.rvList
+        recyclerView.adapter=adapter
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -88,4 +74,8 @@ private val mSharedViewModel:SharedViewModel by viewModels()
         builder.create().show()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
+    }
 }
