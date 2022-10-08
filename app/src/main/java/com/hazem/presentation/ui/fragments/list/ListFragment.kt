@@ -3,18 +3,16 @@ package com.hazem.presentation.ui.fragments.list
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hazem.data.viewmodel.SharedViewModel
 import com.hazem.data.viewmodel.ToDoViewModel
+import com.hazem.presentation.ui.fragments.list.adapter.ListAdapter
 import com.hazem.todoapplication.R
 import com.hazem.todoapplication.databinding.FragmentListBinding
 
@@ -24,9 +22,8 @@ private val toDoViewModel:ToDoViewModel by viewModels()
 private val mSharedViewModel:SharedViewModel by viewModels()
 private var _binding:FragmentListBinding?=null
 private val binding get() = _binding!!
-    private val adapter:ListAdapter by lazy { ListAdapter() }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    private val adapter: ListAdapter by lazy { ListAdapter() }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
          _binding=FragmentListBinding.inflate(inflater,container,false)
     return binding.root
     }
@@ -47,6 +44,18 @@ private val binding get() = _binding!!
     private fun setUpRecyclerView() {
         recyclerView=binding.rvList
         recyclerView.adapter=adapter
+        swipeToDelete(recyclerView)
+    }
+    private fun swipeToDelete(recyclerView: RecyclerView){
+        val swipeToDeleteCallBack=object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+             val currItem=adapter.dataList[viewHolder.adapterPosition]
+             toDoViewModel.deleteData(currItem)
+                Toast.makeText(requireContext(),"${currItem.title} deleted successfully",Toast.LENGTH_LONG).show()
+            }
+        }
+        val itemTouchHelper=ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

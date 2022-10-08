@@ -17,18 +17,18 @@ import com.hazem.data.model.ToDoData
 import com.hazem.data.viewmodel.SharedViewModel
 import com.hazem.data.viewmodel.ToDoViewModel
 import com.hazem.todoapplication.R
+import com.hazem.todoapplication.databinding.FragmentUpdateBinding
 
 class UpdateFragment : Fragment(),MenuProvider {
+    private var _binding:FragmentUpdateBinding?=null
+    private val binding get() = _binding!!
 private val args by navArgs<UpdateFragmentArgs>()
     private val mSharedViewModel:SharedViewModel by viewModels()
     private val mToDoViewModel:ToDoViewModel by viewModels()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update, container, false)
+        _binding= FragmentUpdateBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
 
@@ -36,9 +36,10 @@ private val args by navArgs<UpdateFragmentArgs>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
-        view.findViewById<EditText>(R.id.et_input_title_update).setText(args.currentItem.title)
-        view.findViewById<EditText>(R.id.et_update_input_description).setText(args.currentItem.description)
-        view.findViewById<Spinner>(R.id.spinner_update).setSelection(mSharedViewModel.parsePriorityToInt(args.currentItem.priority))
+        binding.args=args
+       // view.findViewById<EditText>(R.id.et_input_title_update).setText(args.currentItem.title)
+        //view.findViewById<EditText>(R.id.et_update_input_description).setText(args.currentItem.description)
+        //view.findViewById<Spinner>(R.id.spinner_update).setSelection(mSharedViewModel.parsePriorityToInt(args.currentItem.priority))
         view.findViewById<Spinner>(R.id.spinner_update).onItemSelectedListener=mSharedViewModel.listener
     }
 
@@ -87,5 +88,8 @@ private val args by navArgs<UpdateFragmentArgs>()
         }
 
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
+    }
 }

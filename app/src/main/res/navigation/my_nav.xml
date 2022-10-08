@@ -35,6 +35,7 @@
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
         <argument
+
             android:name="currentItem"
             app:argType="com.hazem.data.model.ToDoData" />
     </fragment>

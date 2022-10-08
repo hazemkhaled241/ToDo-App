@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+<variable
+    name="args"
+    type="com.hazem.presentation.ui.fragments.update.UpdateFragmentArgs" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
-                android:hint="@string/title"
+                android:text="@{args.currentItem.title}"
 
 
                 />
@@ -45,7 +47,9 @@
             app:layout_constraintTop_toBottomOf="@+id/et_til_title"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_7sdp"
-            android:entries="@array/priorities" />
+            android:entries="@array/priorities"
+            android:parsePriorityToInt="@{args.currentItem.priority}"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
@@ -66,7 +70,7 @@
                 android:inputType="textMultiLine"
                 android:hint="@string/description"
                 android:gravity="top|start"
-
+                android:text="@{args.currentItem.description}"
 
                 />
         </com.google.android.material.textfield.TextInputLayout>

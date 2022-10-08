@@ -40,14 +40,7 @@ class SharedViewModel(application: Application):AndroidViewModel(application) {
 
         }
     }
-    fun parsePriorityToInt(priority: Priority):Int{
-        return when(priority){
-            Priority.HiIGH->0
-            Priority.MEDIUM->1
-            Priority.LOW->2
 
-        }
-    }
 
      fun verifyDataFromUser(mTitle: String, mDescription: String): Boolean {
         return mTitle.isNotEmpty()&&mDescription.isNotEmpty()
