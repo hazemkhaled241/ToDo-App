@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.hazem.data.model.ToDoData
 import com.hazem.data.viewmodel.SharedViewModel
 import com.hazem.data.viewmodel.ToDoViewModel
 import com.hazem.presentation.ui.fragments.list.adapter.ListAdapter
@@ -51,11 +53,20 @@ private val binding get() = _binding!!
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
              val currItem=adapter.dataList[viewHolder.adapterPosition]
              toDoViewModel.deleteData(currItem)
-                Toast.makeText(requireContext(),"${currItem.title} deleted successfully",Toast.LENGTH_LONG).show()
+              adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                restoreDeletedData(viewHolder.itemView,currItem,viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper=ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+    private fun restoreDeletedData(view:View,deletedItem:ToDoData,position:Int){
+     val snackBar=Snackbar.make(view,"${deletedItem.title} is Deleted",Snackbar.LENGTH_LONG)
+        snackBar.setAction("Undo"){
+            toDoViewModel.insertData(deletedItem)
+            adapter.notifyDataSetChanged()
+        }
+        snackBar.show()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
