@@ -85,6 +85,14 @@ private val binding get() = _binding!!
       when(menuItem.itemId){
           R.id.menu_deleteAll->{deleteAll()
               return true}
+          R.id.priority_high->{toDoViewModel.sortByHighPriority.observe(viewLifecycleOwner){
+              adapter.setData(it)
+          }
+              return true}
+          R.id.priority_low->{toDoViewModel.sortByLowPriority.observe(viewLifecycleOwner){
+              adapter.setData(it)
+          }
+              return true}
       }
 
         return true
