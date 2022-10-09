@@ -34,5 +34,11 @@ class ToDoViewModel(application:Application):AndroidViewModel(application) {
             toDoRepository.deleteAll()
         }
     }
+    fun searchInDataBase(query: String):LiveData<List<ToDoData>>{
+
+            return toDoRepository.searchInDataBase(query)
+
+
+    }
 
 }

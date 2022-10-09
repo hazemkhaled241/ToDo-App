@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.view.animation.OvershootInterpolator
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ import com.hazem.todoapplication.R
 import com.hazem.todoapplication.databinding.FragmentListBinding
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class ListFragment : Fragment(),MenuProvider {
+class ListFragment : Fragment(),MenuProvider,SearchView.OnQueryTextListener {
 private lateinit var recyclerView:RecyclerView
 private val toDoViewModel:ToDoViewModel by viewModels()
 private val mSharedViewModel:SharedViewModel by viewModels()
@@ -74,6 +75,10 @@ private val binding get() = _binding!!
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.list_fragment_menu,menu)
+        val search:MenuItem=menu.findItem(R.id.menu_search)
+        val searchView: SearchView? =search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled=true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -101,4 +106,28 @@ private val binding get() = _binding!!
         super.onDestroyView()
         _binding=null
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query!=null){
+        searchThroughDataBase(query)
+        }
+        return true
+    }
+    override fun onQueryTextChange(query: String?): Boolean {
+        if(query!=null){
+            searchThroughDataBase(query)
+        }
+        return true
+    }
+
+    private fun searchThroughDataBase(query:String) {
+        val strQuery:String="%$query%"
+      toDoViewModel.searchInDataBase(strQuery).observe(viewLifecycleOwner){list->
+          list?.let {
+         adapter.setData(it)
+          }
+
+      }
+    }
+
 }

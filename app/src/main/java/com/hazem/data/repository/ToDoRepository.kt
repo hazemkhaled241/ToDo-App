@@ -1,6 +1,7 @@
 package com.hazem.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 import com.hazem.data.ToDoDao
 import com.hazem.data.model.ToDoData
 
@@ -18,5 +19,8 @@ class ToDoRepository(private val toDoDao: ToDoDao) {
     }
     suspend fun deleteAll(){
         toDoDao.deleteAll()
+    }
+     fun searchInDataBase(query: String):LiveData<List<ToDoData>>{
+       return toDoDao.searchInDataBase(query)
     }
 }
