@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.hazem.data.model.ToDoData
 import com.hazem.data.viewmodel.SharedViewModel
@@ -49,6 +50,7 @@ private val binding get() = _binding!!
     private fun setUpRecyclerView() {
         recyclerView=binding.rvList
         recyclerView.adapter=adapter
+        recyclerView.layoutManager=StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         recyclerView.itemAnimator=SlideInUpAnimator(OvershootInterpolator(1f))
         swipeToDelete(recyclerView)
     }
