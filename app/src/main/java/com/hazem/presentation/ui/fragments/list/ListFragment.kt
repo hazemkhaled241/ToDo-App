@@ -3,6 +3,7 @@ package com.hazem.presentation.ui.fragments.list
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.hazem.data.viewmodel.ToDoViewModel
 import com.hazem.presentation.ui.fragments.list.adapter.ListAdapter
 import com.hazem.todoapplication.R
 import com.hazem.todoapplication.databinding.FragmentListBinding
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment(),MenuProvider {
 private lateinit var recyclerView:RecyclerView
@@ -46,6 +48,7 @@ private val binding get() = _binding!!
     private fun setUpRecyclerView() {
         recyclerView=binding.rvList
         recyclerView.adapter=adapter
+        recyclerView.itemAnimator=SlideInUpAnimator(OvershootInterpolator(1f))
         swipeToDelete(recyclerView)
     }
     private fun swipeToDelete(recyclerView: RecyclerView){
