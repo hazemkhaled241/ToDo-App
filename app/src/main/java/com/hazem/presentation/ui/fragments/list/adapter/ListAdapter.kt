@@ -1,6 +1,7 @@
 package com.hazem.presentation.ui.fragments.list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hazem.data.model.ToDoData
 import com.hazem.todoapplication.databinding.RowLayoutBinding
@@ -46,7 +47,9 @@ class ListAdapter :RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
      return dataList.size
     }
     fun setData(toDoData: List<ToDoData>){
+        val toDoDiffUtil=ToDoDiffUtil(dataList,toDoData)
+        val diffUtilResult=DiffUtil.calculateDiff(toDoDiffUtil)
          this.dataList=toDoData
-        notifyDataSetChanged()
+         diffUtilResult.dispatchUpdatesTo(this)
     }
 }

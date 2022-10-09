@@ -13,7 +13,7 @@ import com.hazem.data.model.ToDoData
 import com.hazem.todoapplication.R
 
 class SharedViewModel(application: Application):AndroidViewModel(application) {
-   val emptyDataBase:MutableLiveData<Boolean> = MutableLiveData(true)
+   val emptyDataBase:MutableLiveData<Boolean> = MutableLiveData(false)
   val listener:AdapterView.OnItemSelectedListener=object :
     AdapterView.OnItemSelectedListener{
       override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
