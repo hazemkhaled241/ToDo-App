@@ -12,4 +12,5 @@ Simple ToDo App that enable you to prioritize your tasks that you intend to do w
 * DiffUtil
 * Animate RecyclerView
 # Images
-![WhatsApp Image 2022-10-20 at 8 00 04 PM (1)](https://user-images.githubusercontent.com/84819643/197024818-af53dbf6-b70c-40a6-b8ac-e4a484e68915.jpeg)
+
+![WhatsApp Image 2022-10-20 at 8 00 04 PM (1)](https://user-images.githubusercontent.com/84819643/197028910-1b887886-36dc-4d8b-9865-6994a6d2f439.jpeg)
