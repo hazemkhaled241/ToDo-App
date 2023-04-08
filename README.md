@@ -3,7 +3,7 @@ Simple ToDo App that enable you to prioritize your tasks that you intend to do w
  or low importance. You can also sort all tasks by low priority or high priority or update any task additionally you can delete any task by swip it or delete all tasks
  finally you can also search for any task by title
  # I have used
-* MVVM Clean Architecture
+* MVVM 
 * Navigation Component
 * Live Data
 * Kotlin Coroutines
